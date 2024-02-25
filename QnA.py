@@ -1,13 +1,15 @@
 import os
 import json
 from openai import OpenAI
-from llama_index import SimpleDirectoryReader, GPTVectorStoreIndex, LLMPredictor, PromptHelper, ServiceContext, StorageContext, load_index_from_storage
+from llama_index import GPTVectorStoreIndex, LLMPredictor, PromptHelper, ServiceContext, StorageContext, load_index_from_storage
 from fastapi import FastAPI, HTTPException, Form
 from langchain.chat_models import ChatOpenAI
 from dotenv import load_dotenv
 import os
 import time
 import datetime
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 # Load environment variables from the .env file
 load_dotenv()
@@ -27,6 +29,14 @@ if not openai_api_key:
 
 # Initialize FastAPI application
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # List of allowed origins
+    allow_credentials=True,  # Allow cookies to be included in cross-origin requests
+    allow_methods=["*"],  # Allow all methods (GET, POST, PUT, DELETE, etc.)
+    allow_headers=["*"],  # Allow all headers
+)
+
 
 # Function to log messages with timestamps
 def log_message(message, val):
