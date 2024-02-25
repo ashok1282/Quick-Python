@@ -1,7 +1,7 @@
 import os
 import json
 from openai import OpenAI
-from llama_index import GPTVectorStoreIndex, LLMPredictor, PromptHelper, ServiceContext, StorageContext, load_index_from_storage
+from llama_index import SimpleDirectoryReader, GPTVectorStoreIndex, LLMPredictor, PromptHelper, ServiceContext, StorageContext, load_index_from_storage
 from fastapi import FastAPI, HTTPException, Form
 from langchain.chat_models import ChatOpenAI
 from dotenv import load_dotenv
